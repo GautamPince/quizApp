@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "poppins", sans-serif, Verdana, Geneva, Tahoma, sans-serif;
+}
+body {
+    color: #fff;
+    background: #09001d;
+    overflow: hidden;
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 10%;
+    background-color: transparent;
+    /* background-color: turquoise; */
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 32px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    filter: drop-shadow(0 0 5px #09001d);
+}
+.navbar a {
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 25px;
+    transition: 1s;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: #c40094;
+}
+.main {
+    min-height: 100vh;
+    background: url("./BACK.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+    pointer-events: auto;
+}
+.main.active {
+    filter: blur(20px);
+    pointer-events: none;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: 200%;
+}
+.home {
+    position: relative;
+    left: -50%;
+    /* height: 100vh; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home-content {
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.home-content h1 {
+    font-size: 78px;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.home-content p {
+    font-size: 16px;
+    text-align: center;
+    text-shadow: 0 0 10pxq rgba(0, 0, 0, 0.3);
+    margin-bottom: 30px;
+}
+.home-content .start-btn {
+    width: 190px;
+    height: 55px;
+    background: #c40094;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    box-shadow: 0 0 10px #c40094;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.home-content .start-btn:hover {
+    background-color: #fff;
+    border: 5px solid #c40094;
+    color: #c40094;
+    box-shadow: none;
+}
+
+/* popup for guide and starting the quiz */
+.popup-info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 500px;
+    background: #fff;
+    border-radius: 6px;
+    padding: 10px 25px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease-in;
+}
+.popup-info.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+.popup-info h2 {
+    font-size: 50px;
+    color: #c40094;
+}
+.popup-info .info {
+    display: inline-block;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    margin: 4px 0;
+}
+.popup-info .btn-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #c40094;
+    margin-top: 10px;
+    padding: 15px 0 7px;
+}
+
+.popup-info .btn-group .info-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 45px;
+    background: #c40094;
+    border: 2px solid #fff;
+    outline: none;
+    border-radius: 6px;
+    box-shadow: 0 0 10px #c40094;
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
+    letter-spacing: 1px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: 0.5d;
+}
+.popup-info .btn-group .info-btn:nth-child(1) {
+    background: transparent;
+    color: #c40094;
+}
+
+.popup-info .btn-group .info-btn:nth-child(1):hover {
+    background: #c40094;
+    color: #fff;
+}
+
+.popup-info .btn-group .info-btn:nth-child(2):hover {
+    background: transparent;
+    color: #c40094;
+}
+
+.quiz-section {
+    position: relative;
+    left: -50%;
+    /* left: 0; */
+    width: 100%;
+    background: #09001d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    transition: 0.8s ease-in-out;
+    transition-delay: 0.25s;
+}
+.quiz-section.active {
+    left: 0;
+}
+.quiz-section .quiz-box {
+    position: relative;
+    width: 500px;
+    background: transparent;
+    border: 2px solid #c40094;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 30px;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(.9);
+}
+.quiz-section .quiz-box.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+    transition: 1s ease;
+    transition-delay: 1s;
+}
+.quiz-box h1 {
+    font-size: 32px;
+    text-align: center;
+    background: linear-gradient(45deg, transparent, #c40094, transparent);
+}
+.quiz-box .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 2px solid #c40094;
+    margin-bottom: 25px;
+}
+.quiz-header span {
+    font-style: 18px;
+    font-weight: 500;
+}
+.quiz-header .header-score {
+    background: #c40094;
+    border-radius: 3px;
+    padding: 7px;
+}
+.quiz-box .question-text {
+    font-size: 24px;
+}
+.option-list .option {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 2px solid rgba(201, 0, 134, 0.2);
+    border-radius: 3px;
+    font-size: 17px;
+    margin: 15px 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.option-list .option:hover {
+    background: rgba(201, 0, 134, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+.quiz-box .quiz-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #c40094;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+.quiz-footer .question-total {
+    font-size: 16px;
+    font-weight: 600;
+}
+.quiz-footer .next-btn {
+    width: 100px;
+    height: 45px;
+    background: #c4009348;
+    border: 2px solid #c400938f;
+    outline: none;
+    border-radius: 6px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+    cursor: pointer;
+    pointer-events: none;
+    transition: 0.5s;
+}
+.quiz-footer .next-btn:hover {
+    background: #950170;
+    border: #950173;
+    color: #fff;
+}
+
+    </style>
+</head>
+<body>
+    <main class="main">
+        <header class="header">
+            <a href="#" class="logo">Quiz.</a>
+            <nav class="navbar">
+                <a href="#" class="active">Home</a>
+                <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Contact</a>
+            </nav>
+
+        </header>
+        <div class="container">
+            <section class="quiz-section">
+                <div class="quiz-box">
+                    <h1>Codehal Quiz</h1>
+                    <div class="quiz-header">
+                        <span>Quiz website Tutorials</span>
+                        <span class="header-score">Score: 0/5</span>
+                    </div>
+
+                    <h2 class="question-text"> What does HTML stand for?</h2>
+
+                    <div class="option-list">
+                        <div class="option">
+                            <span>A. Hyper text multi languages</span>
+                        </div>
+                        <div class="option">
+                            <span>B. Hyper text multiple language</span>
+                        </div>
+                        <div class="option">
+                            <span>C. Hyper Text markup language</span>
+                        </div>
+                        <div class="option">
+                            <span>D. Home text markup language</span>
+                        </div>
+                    </div>
+                    <div class="quiz-footer">
+                        <span class="question-total">1 of 5 Questions</span>
+                        <button class="next-btn">Next</button>
+                    </div>
+                </div>
+            </section>
+            <section class="home">
+                <div class="home-content">
+                    <h1>Quiz website</h1>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil blanditiis ex perspiciatis fugiat
+                        possimus voluptates id, quas officia molestiae dolorem saepe, minima ipsum minus veniam porro
+                        laborum maiores iusto ducimus.</p>
+                    <button class="start-btn">Start Quiz</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="popup-info">
+        <h2>Quiz Guide</h2>
+        <span class="info">1. Lorem ipsum dolor sit amet consectetur adipisicing.</span>
+        <span class="info">2. Lorem ipsum dolor sit amet consectetur adipisicing.</span>
+        <span class="info">3. Lorem ipsum dolor sit amet consectetur adipisicing.</span>
+        <span class="info">4. Lorem ipsum dolor sit amet consectetur adipisicing.</span>
+        <span class="info">5. Lorem ipsum dolor sit amet consectetur adipisicing.</span>
+
+        <div class="btn-group">
+            <button class="info-btn exit-btn">Exit Quiz</button>
+            <button class="info-btn continue-btn">Continue</button>
+        </div>
+    </div>
+    <script src="questions.js">let questions = [
+    {
+        numb: 1,
+        question: "What does HTML stand for?",
+        answer: "C. Hyper text markup language",
+        options: [
+            "A. Hyper text multi language",
+            "B. Hyper text multiple language",
+            "C. Hyper text markup language",
+            "D. Home text markup language"
+        ]
+    },
+    {
+        numb: 2,
+        question: "What does CSS stand for?",
+        answer: "A. Cascading style sheet",
+        options: [
+            "A. Cascading style sheet ",
+            "B. Coding style sheet ",
+            "C. Cascading sheet style ",
+            "D. cute style sheet ",
+        ]
+    },
+    {
+        numb: 3,
+        question: "What does PHP stand for?",
+        answer: "D. Hypertext preprocessor",
+        options: [
+            "A. Programming Hypertext preprocessor",
+            "B. Hypertext programing preprocessor",
+            "C. Hypertext preprocessor Programming",
+            "D. Hypertext preprocessor",
+        ]
+    },
+    {
+        numb: 4,
+        question: "What does XML  stand for?",
+        answer: "D. Extensible markup language",
+        options: [
+            "A. Executable markup language",
+            "D. Extra markup language",
+            "D. Explore markup language",
+            "D. Extensible markup language",
+        ]
+    },
+    {
+        numb: 5,
+        question: "What does SQL stand for?",
+        answer: "A. Sturctured query language",
+        options: [
+            "A. Sturctured query language",
+            "A. Sturctural query language",
+            "A. Sturct query language",
+            "A. Select query language",
+        ]
+    },
+];</script>
+    
+    <script src="script.js">const startBtn = document.querySelector(".start-btn");
+const popupInfo = document.querySelector(".popup-info");
+const exitBtn = document.querySelector(".exit-btn");
+const main = document.querySelector(".main");
+const continueBtn = document.querySelector(".continue-btn");
+const quizSection = document.querySelector(".quiz-section");
+const quizBox = document.querySelector(".quiz-box");
+
+
+startBtn.onclick = () => {
+    popupInfo.classList.add('active');
+    main.classList.add('active');
+}
+
+exitBtn.onclick = () => {
+    popupInfo.classList.remove('active');
+    main.classList.remove('active');
+}
+
+continueBtn.onclick = () => {
+    quizSection.classList.add('active')
+    popupInfo.classList.remove('active');
+    main.classList.remove('active');
+    quizBox.classList.add("active");
+
+       showQuestions(0);
+}
+
+let questionCount = 0;
+
+// getting question and option from an array
+function showQuestions(index) {
+    const questionText = document.querySelector('.question-text');
+   questionText.textContent = '${questions[index].numb}. $questions[index].question}';
+}
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="main">
+        <header class="header">
+            <a href="#" class="logo">Quiz.</a>
+            <nav class="navbar">
+                <a href="#" class="active">Home</a>
+                <!-- <a href="#">About</a>
+                <a href="#">Services</a>
+                <a href="#">Contact</a> -->
+            </nav>
+
+        </header>
+        <div class="container">
+            <section class="quiz-section">
+                <div class="quiz-box">
+                    <h1>Compatative Quiz</h1>
+                    <div class="quiz-header">
+                        <span>Quiz website Tutorials</span>
+                        <span class="header-score">Score: 0/5</span>
+                    </div>
+
+                    <h2 class="question-text"> What does HTML stand for?</h2>
+
+                    <div class="option-list">
+                        <!-- 
+                        <div class="option">
+                            <span>D. Home text markup language</span>
+                        </div> -->
+                    </div>
+                    <div class="quiz-footer">
+                        <span class="question-total">1 of 5 Questions</span>
+                        <button class="next-btn">Next</button>
+                    </div>
+                </div>
+                <div class="result-box">
+                    <h2>Quiz result!</h2>
+                    <div class="percentage-container">
+                        <div class="circuler-progress">
+                            <span class="progress-value">0%</span>
+                        </div>
+                        <span class="score-text">Your score is 0 out of 5</span>
+                    </div>
+                    <div class="buttons">
+                        <button class="tryAgain-btn">Try Again</button>
+                        <button class="goHome-btn">Go To Home</button>
+                    </div>
+                </div>
+            </section>
+            <section class="home">
+                <div class="home-content">
+                    <h1>Quiz website</h1>
+                    <p>Developing a quiz website using HTML, CSS, and JavaScript creates an interactive and visually appealing platform, enhancing user engagement through structured content, stylish design, and dynamic functionality for an enjoyable experience.</p>
+                    <button class="start-btn">Start Quiz</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="popup-info">
+        <h2>Quiz Guide</h2>
+        <span class="info">1. Before starting the quiz, read all provided instructions to understand the rules and format.
+
+        </span>
+        <span class="info">2.  Keep an eye on the timer to ensure you complete all questions within the allotted time.</span>
+        <span class="info">3. Do not use external resources or assistance while taking the quiz to ensure fairness and integrity.</span>
+        <span class="info">4. Attempt to answer every question, as there may be no penalty for incorrect answers.</span>
+        <span class="info">5. If time allows, review your answers before submitting to catch any mistakes or missed questions.</span>
+
+        <div class="btn-group">
+            <button class="info-btn exit-btn">Exit Quiz</button>
+            <button class="info-btn continue-btn">Continue</button>
+        </div>
+    </div>
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
